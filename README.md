@@ -185,3 +185,43 @@ Some terminals (Mac terminal, [iterm2](https://iterm2.com/)) display a key curso
 You can turn this off in [iterm2](https://iterm2.com/) like so:
 
 ![Disable icon in iterm2](_images/iterm-disable-key.png)
+
+### Sample demo
+```
+git clone https://github.com/paxtonhare/demo-magic.git
+mkdir demo  # Create a working dir for showcase
+cp demo-magic/demo-magic.sh demo/demo-magic.sh  # Copy the helpers
+
+# Install "Pipe Viewer" for simulated typing
+# MacOS:
+brew install pv
+
+# Move to showcase directory and create your "script"
+cd demo
+touch sample.sh
+chmod +x sample.sh
+
+> cat sample.sh
+#!/bin/bash
+
+# Include the "demo-magic" helpers
+source demo-magic.sh
+
+DEMO_PROMPT="${GREEN}➜ ${CYAN}\W ${COLOR_RESET}"
+TYPE_SPEED=30
+
+function comment() {
+  cmd=$DEMO_COMMENT_COLOR$1$COLOR_RESET
+  echo -en "$cmd"; echo ""
+}
+
+clear
+
+comment "# Simple commands:"
+pe 'ps aux | head'
+pe 'ls -l'
+
+comment "# Print and execute immediately"
+pei 'cat <File-Name>'
+echo
+```
